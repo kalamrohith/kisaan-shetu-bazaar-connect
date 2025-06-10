@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Search, User, Menu, X } from 'lucide-react';
@@ -8,8 +9,25 @@ import { AuthForm } from './AuthForm';
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
 
   const categories = ['Vegetables', 'Fruits', 'Grains', 'Spices', 'Dairy', 'Others'];
+
+  const handleSearch = () => {
+    if (searchQuery.trim()) {
+      navigate(`/products?search=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
+
+  const handleCategoryClick = (category: string) => {
+    navigate(`/products?category=${encodeURIComponent(category)}`);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
 
   return (
     <header className="bg-card border-b border-border sticky top-0 z-50">
@@ -32,11 +50,12 @@ const Header = () => {
                 placeholder="Search for fresh vegetables, fruits, grains..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyPress={handleKeyPress}
                 className="pl-10 pr-4 py-2 w-full"
               />
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             </div>
-            <Button className="ml-2">Search</Button>
+            <Button className="ml-2" onClick={handleSearch}>Search</Button>
           </div>
 
           {/* Auth Buttons & Menu */}
@@ -90,6 +109,7 @@ const Header = () => {
           {categories.map((category) => (
             <button
               key={category}
+              onClick={() => handleCategoryClick(category)}
               className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
             >
               {category}
@@ -107,6 +127,7 @@ const Header = () => {
                 placeholder="Search products..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyPress={handleKeyPress}
                 className="pl-10"
               />
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -117,6 +138,7 @@ const Header = () => {
               {categories.map((category) => (
                 <button
                   key={category}
+                  onClick={() => handleCategoryClick(category)}
                   className="text-sm font-medium text-muted-foreground hover:text-primary text-left p-2 rounded-md hover:bg-accent transition-colors"
                 >
                   {category}

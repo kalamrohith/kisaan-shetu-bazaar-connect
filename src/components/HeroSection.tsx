@@ -1,6 +1,8 @@
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 
 const HeroSection = () => {
+  const navigate = useNavigate();
   return (
     <section className="bg-gradient-to-br from-primary/10 via-accent/20 to-secondary/30 py-20">
       <div className="container mx-auto px-4">
@@ -19,10 +21,10 @@ const HeroSection = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="text-lg px-8 py-6">
+              <Button size="lg" className="text-lg px-8 py-6" onClick={() => navigate('/products')}>
                 Start Shopping
               </Button>
-              <Button variant="outline" size="lg" className="text-lg px-8 py-6">
+              <Button variant="outline" size="lg" className="text-lg px-8 py-6" onClick={() => navigate('/farmer-dashboard')}>
                 Become a Farmer
               </Button>
             </div>

@@ -39,7 +39,7 @@ const ProductCard = ({
         {/* Product Image */}
         <div className="relative aspect-square overflow-hidden rounded-t-lg">
           <div className="w-full h-full bg-gradient-to-br from-accent/20 to-secondary/30 flex items-center justify-center">
-            <span className="text-6xl">{image}</span>
+            <span className="text-8xl">{image}</span>
           </div>
           
           {/* Badges */}

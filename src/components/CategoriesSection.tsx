@@ -1,14 +1,21 @@
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 
 const CategoriesSection = () => {
+  const navigate = useNavigate();
+  
   const categories = [
-    { name: 'Vegetables', icon: '🥬', count: '250+ products', color: 'from-green-400/20 to-green-600/20' },
-    { name: 'Fruits', icon: '🍎', count: '180+ products', color: 'from-red-400/20 to-red-600/20' },
-    { name: 'Grains', icon: '🌾', count: '120+ products', color: 'from-yellow-400/20 to-yellow-600/20' },
-    { name: 'Spices', icon: '🌶️', count: '80+ products', color: 'from-orange-400/20 to-orange-600/20' },
-    { name: 'Dairy', icon: '🥛', count: '60+ products', color: 'from-blue-400/20 to-blue-600/20' },
-    { name: 'Others', icon: '🥜', count: '90+ products', color: 'from-purple-400/20 to-purple-600/20' },
+    { name: 'Vegetables', icon: '🥬', count: '250+ products', color: 'from-success/20 to-primary/20' },
+    { name: 'Fruits', icon: '🍎', count: '180+ products', color: 'from-destructive/20 to-harvest/20' },
+    { name: 'Grains', icon: '🌾', count: '120+ products', color: 'from-harvest/20 to-accent/20' },
+    { name: 'Spices', icon: '🌶️', count: '80+ products', color: 'from-earth/20 to-destructive/20' },
+    { name: 'Dairy', icon: '🥛', count: '60+ products', color: 'from-secondary/20 to-accent/20' },
+    { name: 'Others', icon: '🥜', count: '90+ products', color: 'from-muted/20 to-primary/20' },
   ];
+
+  const handleCategoryClick = (categoryName: string) => {
+    navigate(`/products?category=${encodeURIComponent(categoryName)}`);
+  };
 
   return (
     <section className="py-16 bg-muted/30">
@@ -28,6 +35,7 @@ const CategoriesSection = () => {
             <Card 
               key={category.name} 
               className="group hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer"
+              onClick={() => handleCategoryClick(category.name)}
             >
               <CardContent className="p-6 text-center">
                 <div className={`w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br ${category.color} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
