@@ -16,8 +16,8 @@ const ProductsPage = () => {
 
   const [searchQuery, setSearchQuery] = useState(initialSearch);
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
-  const [sortBy, setSortBy] = useState('');
-  const [organicFilter, setOrganicFilter] = useState('');
+  const [sortBy, setSortBy] = useState('default');
+  const [organicFilter, setOrganicFilter] = useState('all');
 
   const allProducts = [
     {
@@ -414,7 +414,7 @@ const ProductsPage = () => {
       const matchesCategory = selectedCategory === '' || selectedCategory === 'All' || 
                              product.category === selectedCategory;
       
-      const matchesOrganic = organicFilter === '' || 
+      const matchesOrganic = organicFilter === '' || organicFilter === 'all' || 
                             (organicFilter === 'organic' && product.isOrganic) ||
                             (organicFilter === 'non-organic' && !product.isOrganic);
       
@@ -431,6 +431,7 @@ const ProductsPage = () => {
     } else if (sortBy === 'name') {
       filtered.sort((a, b) => a.name.localeCompare(b.name));
     }
+    // For 'default' or empty sortBy, no sorting is applied
 
     return filtered;
   })();
@@ -462,7 +463,7 @@ const ProductsPage = () => {
                     <SelectValue placeholder="Sort by" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">Default</SelectItem>
+                    <SelectItem value="default">Default</SelectItem>
                     <SelectItem value="price-low">Price: Low to High</SelectItem>
                     <SelectItem value="price-high">Price: High to Low</SelectItem>
                     <SelectItem value="rating">Rating</SelectItem>
@@ -477,7 +478,7 @@ const ProductsPage = () => {
                     <SelectValue placeholder="Type" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All Types</SelectItem>
+                    <SelectItem value="all">All Types</SelectItem>
                     <SelectItem value="organic">Organic Only</SelectItem>
                     <SelectItem value="non-organic">Non-Organic</SelectItem>
                   </SelectContent>
