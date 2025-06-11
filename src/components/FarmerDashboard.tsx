@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -8,8 +9,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
-import { Plus, Edit, Trash } from 'lucide-react';
+import { Plus, Edit, Trash, ArrowLeft } from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Rating from './Rating';
+import LandLeaseSection from './LandLeaseSection';
 
 interface Product {
   id: string;
@@ -67,6 +70,8 @@ const FarmerDashboard = () => {
   });
 
   const [isAddingProduct, setIsAddingProduct] = useState(false);
+  const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+  const navigate = useNavigate();
   const { toast } = useToast();
 
   const categories = ['Vegetables', 'Fruits', 'Grains', 'Spices', 'Dairy', 'Others'];
@@ -125,9 +130,19 @@ const FarmerDashboard = () => {
       <div className="bg-card border-b border-border">
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div>
-              <h1 className="text-3xl font-bold text-foreground">Farmer Dashboard</h1>
-              <p className="text-muted-foreground">Manage your products and track your sales</p>
+            <div className="flex items-center gap-4">
+              <Button 
+                variant="outline" 
+                onClick={() => navigate('/')}
+                className="flex items-center gap-2"
+              >
+                <ArrowLeft className="h-4 w-4" />
+                Back to Home
+              </Button>
+              <div>
+                <h1 className="text-3xl font-bold text-foreground">Farmer Dashboard</h1>
+                <p className="text-muted-foreground">Manage your products and track your sales</p>
+              </div>
             </div>
             
             <Dialog open={isAddingProduct} onOpenChange={setIsAddingProduct}>
@@ -310,14 +325,21 @@ const FarmerDashboard = () => {
           </Card>
         </div>
 
-        {/* Products List */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Your Products</CardTitle>
-            <CardDescription>
-              Manage your product inventory and pricing
-            </CardDescription>
-          </CardHeader>
+        {/* Main Content Tabs */}
+        <Tabs defaultValue="products" className="space-y-6">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="products">Products Management</TabsTrigger>
+            <TabsTrigger value="land">Land for Lease</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="products">
+            <Card>
+              <CardHeader>
+                <CardTitle>Your Products</CardTitle>
+                <CardDescription>
+                  Manage your product inventory and pricing
+                </CardDescription>
+              </CardHeader>
           <CardContent>
             {products.length === 0 ? (
               <div className="text-center py-12">
@@ -390,8 +412,14 @@ const FarmerDashboard = () => {
                 ))}
               </div>
             )}
-          </CardContent>
-        </Card>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="land">
+            <LandLeaseSection />
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );

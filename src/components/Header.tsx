@@ -35,10 +35,12 @@ const Header = () => {
         {/* Top Bar */}
         <div className="flex items-center justify-between py-4">
           {/* Logo */}
-          <div className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-lg">K</span>
-            </div>
+          <div className="flex items-center space-x-2 cursor-pointer" onClick={() => navigate('/')}>
+            <img 
+              src="/lovable-uploads/10fed8d7-cb7e-4877-b362-a101d5e94cde.png" 
+              alt="Kisaan Sethu Logo" 
+              className="w-12 h-12 object-contain"
+            />
             <h1 className="text-2xl font-bold text-primary">Kisaan Sethu</h1>
           </div>
 

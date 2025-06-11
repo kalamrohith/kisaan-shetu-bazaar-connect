@@ -61,7 +61,7 @@ const Rating = ({
                   sizeClasses[size],
                   'transition-colors',
                   isFilled || isHalfFilled 
-                    ? 'fill-warning text-warning' 
+                    ? (rating >= 3 ? 'fill-yellow-500 text-yellow-500' : 'fill-warning text-warning')
                     : 'text-muted-foreground'
                 )}
               />
@@ -69,7 +69,7 @@ const Rating = ({
                 <Star 
                   className={cn(
                     sizeClasses[size],
-                    'absolute top-0 left-0 fill-warning text-warning',
+                    `absolute top-0 left-0 ${rating >= 3 ? 'fill-yellow-500 text-yellow-500' : 'fill-warning text-warning'}`,
                     'clip-path-[inset(0_50%_0_0)]'
                   )}
                   style={{ clipPath: 'inset(0 50% 0 0)' }}

@@ -1,7 +1,11 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { useNavigate } from 'react-router-dom';
+import { useToast } from '@/hooks/use-toast';
+// import { useCart } from '@/components/CartProvider';
 import Rating from './Rating';
+import ProductReviews from './ProductReviews';
 
 interface ProductCardProps {
   id: string;
@@ -16,9 +20,18 @@ interface ProductCardProps {
   discount?: number;
   rating?: number;
   reviewCount?: number;
+  reviews?: Array<{
+    id: string;
+    userName: string;
+    rating: number;
+    comment: string;
+    date: string;
+    verified: boolean;
+  }>;
 }
 
 const ProductCard = ({ 
+  id,
   name, 
   price, 
   unit, 
@@ -29,9 +42,24 @@ const ProductCard = ({
   isOrganic, 
   discount,
   rating = 0,
-  reviewCount = 0
+  reviewCount = 0,
+  reviews = []
 }: ProductCardProps) => {
   const discountedPrice = discount ? price - (price * discount / 100) : price;
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  // const { addToCart } = useCart();
+
+  const handleAddToCart = () => {
+    toast({
+      title: "Added to cart",
+      description: `${name} has been added to your cart.`,
+    });
+  };
+
+  const handleContactFarmer = () => {
+    navigate(`/farmer/${farmer.toLowerCase().replace(/\\s+/g, '-')}`);
+  };
 
   return (
     <Card className="group hover:shadow-lg transition-all duration-300 hover:scale-105">
@@ -74,11 +102,20 @@ const ProductCard = ({
               by {farmer} • {location}
             </p>
             {rating > 0 && (
-              <div className="flex items-center gap-2 mt-1">
-                <Rating rating={rating} showValue={false} size="sm" />
-                <span className="text-xs text-muted-foreground">
-                  ({reviewCount} reviews)
-                </span>
+              <div className="flex items-center justify-between mt-1">
+                <div className="flex items-center gap-2">
+                  <Rating rating={rating} showValue={false} size="sm" />
+                  <span className="text-xs text-muted-foreground">
+                    ({reviewCount} reviews)
+                  </span>
+                </div>
+                {reviews.length > 0 && (
+                  <ProductReviews 
+                    productId={id}
+                    productName={name}
+                    reviews={reviews}
+                  />
+                )}
               </div>
             )}
           </div>
@@ -102,10 +139,10 @@ const ProductCard = ({
 
       <CardFooter className="p-4 pt-0">
         <div className="flex gap-2 w-full">
-          <Button variant="outline" className="flex-1">
+          <Button variant="outline" className="flex-1" onClick={handleContactFarmer}>
             Contact Farmer
           </Button>
-          <Button className="flex-1">
+          <Button className="flex-1" onClick={handleAddToCart}>
             Add to Cart
           </Button>
         </div>

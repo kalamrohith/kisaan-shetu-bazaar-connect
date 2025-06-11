@@ -123,6 +123,16 @@ const ProductsPage = () => {
       isOrganic: false,
       rating: 4.1,
       reviewCount: 89,
+      reviews: [
+        {
+          id: '1',
+          userName: 'Anjali Sharma',
+          rating: 4.7,
+          comment: 'Amazing quality honey! Very pure and tasty.',
+          date: '2024-06-10',
+          verified: true
+        }
+      ]
     },
   ];
 
