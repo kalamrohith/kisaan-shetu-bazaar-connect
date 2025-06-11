@@ -3,6 +3,7 @@ import HeroSection from '@/components/HeroSection';
 import CategoriesSection from '@/components/CategoriesSection';
 import SpecialOffersCarousel from '@/components/SpecialOffersCarousel';
 import FeaturedProducts from '@/components/FeaturedProducts';
+import LandForLeaseHome from '@/components/LandForLeaseHome';
 import OffersSection from '@/components/OffersSection';
 import CustomerReviews from '@/components/CustomerReviews';
 import Footer from '@/components/Footer';
@@ -16,6 +17,7 @@ const Index = () => {
         <CategoriesSection />
         <SpecialOffersCarousel />
         <FeaturedProducts />
+        <LandForLeaseHome />
         <OffersSection />
         <CustomerReviews />
       </main>

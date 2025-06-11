@@ -66,9 +66,20 @@ const ProductCard = ({
       <CardContent className="p-0">
         {/* Product Image */}
         <div className="relative aspect-square overflow-hidden rounded-t-lg">
-          <div className="w-full h-full bg-gradient-to-br from-accent/20 to-secondary/30 flex items-center justify-center">
-            <span className="text-8xl">{image}</span>
-          </div>
+          {image.startsWith('http') ? (
+            <img 
+              src={image} 
+              alt={name}
+              className="w-full h-full object-cover"
+              onError={(e) => {
+                e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDQwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iNDAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0yMDAgMTAwQzE0NC43NzIgMTAwIDEwMCAxNDQuNzcyIDEwMCAyMDBDMTAwIDI1NS4yMjggMTQ0Ljc3MiAzMDAgMjAwIDMwMEMyNTUuMjI4IDMwMCAzMDAgMjU1LjIyOCAzMDAgMjAwQzMwMCAxNDQuNzcyIDI1NS4yMjggMTAwIDIwMCAxMDBaIiBmaWxsPSIjRTVFN0VCIi8+Cjx0ZXh0IHg9IjIwMCIgeT0iMjEwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjOUNBM0FGIiBmb250LXNpemU9IjE2IiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiPkltYWdlPC90ZXh0Pgo8L3N2Zz4K';
+              }}
+            />
+          ) : (
+            <div className="w-full h-full bg-gradient-to-br from-accent/20 to-secondary/30 flex items-center justify-center">
+              <span className="text-8xl">{image}</span>
+            </div>
+          )}
           
           {/* Badges */}
           <div className="absolute top-2 left-2 flex flex-col gap-1">
