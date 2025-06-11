@@ -3,13 +3,36 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { useToast } from '@/hooks/use-toast';
+import { useState } from 'react';
+import ProductDetailModal from './ProductDetailModal';
 
 const SpecialOffersCarousel = () => {
   const { toast } = useToast();
+  const [selectedProduct, setSelectedProduct] = useState<any>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Mock add to cart function for now
   const addToCart = (item: any) => {
     console.log('Adding to cart:', item);
+  };
+
+  const handleProductClick = (offer: any) => {
+    setSelectedProduct({
+      id: offer.id,
+      name: offer.name,
+      price: offer.offerPrice,
+      unit: offer.unit,
+      image: offer.image,
+      farmer: offer.farmer,
+      location: 'Various Locations',
+      category: 'Special Offer',
+      isOrganic: true,
+      discount: offer.discount,
+      rating: 4.5,
+      reviewCount: 15,
+      description: offer.description
+    });
+    setIsModalOpen(true);
   };
 
   const specialOffers = [
@@ -112,7 +135,7 @@ const SpecialOffersCarousel = () => {
             <CarouselContent className="-ml-2 md:-ml-4">
               {specialOffers.map((offer) => (
                 <CarouselItem key={offer.id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
-                  <Card className="group hover:shadow-xl transition-all duration-300 hover:scale-105 overflow-hidden">
+                  <Card className="group hover:shadow-xl transition-all duration-300 hover:scale-105 overflow-hidden cursor-pointer" onClick={() => handleProductClick(offer)}>
                     <CardContent className="p-0">
                       {/* Offer Header */}
                       <div className={`relative p-6 bg-gradient-to-br ${offer.gradient}`}>
@@ -181,6 +204,12 @@ const SpecialOffersCarousel = () => {
           </Button>
         </div>
       </div>
+
+      <ProductDetailModal 
+        product={selectedProduct}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </section>
   );
 };

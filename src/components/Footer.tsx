@@ -68,6 +68,17 @@ const Footer = () => {
                 <span>📧</span>
                 <span>support@kisaansethu.com</span>
               </div>
+              <div className="pt-3 border-t border-primary-foreground/20">
+                <a 
+                  href="https://www.instagram.com/KISAANSETHU" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-2 hover:opacity-100 transition-opacity"
+                >
+                  <span>📷</span>
+                  <span>Follow us on Instagram</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>

@@ -5,12 +5,12 @@ const CategoriesSection = () => {
   const navigate = useNavigate();
   
   const categories = [
-    { name: 'Vegetables', icon: '🥬', count: '250+ products', color: 'from-success/20 to-primary/20' },
-    { name: 'Fruits', icon: '🍎', count: '180+ products', color: 'from-destructive/20 to-harvest/20' },
-    { name: 'Grains', icon: '🌾', count: '120+ products', color: 'from-harvest/20 to-accent/20' },
-    { name: 'Spices', icon: '🌶️', count: '80+ products', color: 'from-earth/20 to-destructive/20' },
-    { name: 'Dairy', icon: '🥛', count: '60+ products', color: 'from-secondary/20 to-accent/20' },
-    { name: 'Others', icon: '🥜', count: '90+ products', color: 'from-muted/20 to-primary/20' },
+    { name: 'Vegetables', icon: '🥬', count: '6 products available', color: 'from-success/20 to-primary/20' },
+    { name: 'Fruits', icon: '🍎', count: '2 products available', color: 'from-destructive/20 to-harvest/20' },
+    { name: 'Grains', icon: '🌾', count: '1 product available', color: 'from-harvest/20 to-accent/20' },
+    { name: 'Spices', icon: '🌶️', count: '1 product available', color: 'from-earth/20 to-destructive/20' },
+    { name: 'Dairy', icon: '🥛', count: '1 product available', color: 'from-secondary/20 to-accent/20' },
+    { name: 'Others', icon: '🥜', count: '5 products available', color: 'from-muted/20 to-primary/20' },
   ];
 
   const handleCategoryClick = (categoryName: string) => {

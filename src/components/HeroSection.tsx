@@ -51,10 +51,12 @@ const HeroSection = () => {
             <div className="aspect-square rounded-2xl bg-gradient-to-br from-primary/20 to-accent/30 p-8">
               <div className="w-full h-full rounded-xl bg-card border border-border flex items-center justify-center">
                 <div className="text-center space-y-4">
-                  <div className="w-24 h-24 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
-                    <span className="text-4xl">🌾</span>
-                  </div>
-                  <h3 className="text-xl font-semibold">Fresh Organic Produce</h3>
+                  <img 
+                    src="https://images.unsplash.com/photo-1472396961693-142e6e269027?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" 
+                    alt="Farmers working on farm" 
+                    className="w-24 h-24 mx-auto rounded-full object-cover"
+                  />
+                  <h3 className="text-xl font-semibold">Kisaan Sethu</h3>
                   <p className="text-muted-foreground">Directly from verified farmers</p>
                 </div>
               </div>
