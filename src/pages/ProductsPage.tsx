@@ -5,7 +5,8 @@ import Footer from '@/components/Footer';
 import ProductCard from '@/components/ProductCard';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Search, Filter } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Search, Filter, ArrowUpDown } from 'lucide-react';
 
 const ProductsPage = () => {
   const location = useLocation();
@@ -15,6 +16,8 @@ const ProductsPage = () => {
 
   const [searchQuery, setSearchQuery] = useState(initialSearch);
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
+  const [sortBy, setSortBy] = useState('');
+  const [organicFilter, setOrganicFilter] = useState('');
 
   const allProducts = [
     {
@@ -328,21 +331,109 @@ const ProductsPage = () => {
         }
       ]
     },
+    {
+      id: '14',
+      name: 'Organic Pickles',
+      price: 200,
+      unit: 'jar',
+      image: 'https://images.unsplash.com/photo-1610057099431-d73a1c9d2f2f?w=400&h=400&fit=crop',
+      farmer: 'Usha Devi',
+      location: 'Rajasthan',
+      category: 'Others',
+      isOrganic: true,
+      rating: 4.7,
+      reviewCount: 25,
+      reviews: [
+        {
+          id: '1',
+          userName: 'Priya Sharma',
+          rating: 4.7,
+          comment: 'Authentic homemade pickles, amazing taste!',
+          date: '2024-05-27',
+          verified: true
+        }
+      ]
+    },
+    {
+      id: '15',
+      name: 'Pure Jaggery',
+      price: 180,
+      unit: 'kg',
+      image: 'https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=400&h=400&fit=crop',
+      farmer: 'Ravi Kumar',
+      location: 'Karnataka',
+      category: 'Others',
+      isOrganic: true,
+      rating: 4.6,
+      reviewCount: 42,
+      reviews: [
+        {
+          id: '1',
+          userName: 'Meena Patel',
+          rating: 4.6,
+          comment: 'Pure jaggery, perfect for traditional sweets.',
+          date: '2024-05-26',
+          verified: true
+        }
+      ]
+    },
+    {
+      id: '16',
+      name: 'Vegetable Seeds Kit',
+      price: 350,
+      unit: 'pack',
+      image: 'https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=400&h=400&fit=crop',
+      farmer: 'Sunil Reddy',
+      location: 'Telangana',
+      category: 'Others',
+      isOrganic: true,
+      rating: 4.8,
+      reviewCount: 19,
+      reviews: [
+        {
+          id: '1',
+          userName: 'Anita Singh',
+          rating: 4.8,
+          comment: 'Great variety of seeds, excellent germination rate!',
+          date: '2024-05-25',
+          verified: true
+        }
+      ]
+    }
   ];
 
   const categories = ['All', 'Vegetables', 'Fruits', 'Grains', 'Spices', 'Dairy', 'Others'];
 
-  const filteredProducts = allProducts.filter(product => {
-    const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         product.farmer.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         product.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         product.category.toLowerCase().includes(searchQuery.toLowerCase());
-    
-    const matchesCategory = selectedCategory === '' || selectedCategory === 'All' || 
-                           product.category === selectedCategory;
-    
-    return matchesSearch && matchesCategory;
-  });
+  const filteredAndSortedProducts = (() => {
+    let filtered = allProducts.filter(product => {
+      const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                           product.farmer.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                           product.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                           product.category.toLowerCase().includes(searchQuery.toLowerCase());
+      
+      const matchesCategory = selectedCategory === '' || selectedCategory === 'All' || 
+                             product.category === selectedCategory;
+      
+      const matchesOrganic = organicFilter === '' || 
+                            (organicFilter === 'organic' && product.isOrganic) ||
+                            (organicFilter === 'non-organic' && !product.isOrganic);
+      
+      return matchesSearch && matchesCategory && matchesOrganic;
+    });
+
+    // Apply sorting
+    if (sortBy === 'price-low') {
+      filtered.sort((a, b) => a.price - b.price);
+    } else if (sortBy === 'price-high') {
+      filtered.sort((a, b) => b.price - a.price);
+    } else if (sortBy === 'rating') {
+      filtered.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+    } else if (sortBy === 'name') {
+      filtered.sort((a, b) => a.name.localeCompare(b.name));
+    }
+
+    return filtered;
+  })();
 
   return (
     <div className="min-h-screen">
@@ -363,10 +454,34 @@ const ProductsPage = () => {
                   />
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 </div>
-                <Button variant="outline" className="flex items-center gap-2">
-                  <Filter className="h-4 w-4" />
-                  Filters
-                </Button>
+                
+                {/* Sort Dropdown */}
+                <Select value={sortBy} onValueChange={setSortBy}>
+                  <SelectTrigger className="w-full md:w-48">
+                    <ArrowUpDown className="h-4 w-4 mr-2" />
+                    <SelectValue placeholder="Sort by" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="">Default</SelectItem>
+                    <SelectItem value="price-low">Price: Low to High</SelectItem>
+                    <SelectItem value="price-high">Price: High to Low</SelectItem>
+                    <SelectItem value="rating">Rating</SelectItem>
+                    <SelectItem value="name">Name A-Z</SelectItem>
+                  </SelectContent>
+                </Select>
+
+                {/* Organic Filter */}
+                <Select value={organicFilter} onValueChange={setOrganicFilter}>
+                  <SelectTrigger className="w-full md:w-48">
+                    <Filter className="h-4 w-4 mr-2" />
+                    <SelectValue placeholder="Type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="">All Types</SelectItem>
+                    <SelectItem value="organic">Organic Only</SelectItem>
+                    <SelectItem value="non-organic">Non-Organic</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
 
               {/* Category Filters */}
@@ -394,14 +509,14 @@ const ProductsPage = () => {
                 {selectedCategory ? `${selectedCategory} Products` : 'All Products'}
               </h1>
               <p className="text-muted-foreground">
-                {filteredProducts.length} products found
+                {filteredAndSortedProducts.length} products found
                 {searchQuery && ` for "${searchQuery}"`}
               </p>
             </div>
 
-            {filteredProducts.length > 0 ? (
+            {filteredAndSortedProducts.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {filteredProducts.map((product) => (
+                {filteredAndSortedProducts.map((product) => (
                   <ProductCard key={product.id} {...product} />
                 ))}
               </div>
