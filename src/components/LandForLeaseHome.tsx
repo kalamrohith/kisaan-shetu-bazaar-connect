@@ -81,7 +81,7 @@ const LandForLeaseHome = () => {
 
   const filteredLands = landListings.filter(land => {
     const matchesLocation = !searchLocation || land.location.toLowerCase().includes(searchLocation.toLowerCase());
-    const matchesSoil = !soilFilter || land.soilType === soilFilter;
+    const matchesSoil = !soilFilter || soilFilter === 'all' || land.soilType === soilFilter;
     return matchesLocation && matchesSoil;
   });
 
@@ -121,7 +121,7 @@ const LandForLeaseHome = () => {
               <SelectValue placeholder="Soil Type" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All Soil Types</SelectItem>
+              <SelectItem value="all">All Soil Types</SelectItem>
               <SelectItem value="Black Soil">Black Soil</SelectItem>
               <SelectItem value="Red Soil">Red Soil</SelectItem>
               <SelectItem value="Loamy Soil">Loamy Soil</SelectItem>
