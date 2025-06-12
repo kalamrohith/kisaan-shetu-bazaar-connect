@@ -3,7 +3,7 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
-// import { useCart } from '@/components/CartProvider';
+import { useCart } from '@/components/CartProvider';
 import Rating from './Rating';
 import ProductReviews from './ProductReviews';
 
@@ -48,9 +48,17 @@ const ProductCard = ({
   const discountedPrice = discount ? price - (price * discount / 100) : price;
   const navigate = useNavigate();
   const { toast } = useToast();
-  // const { addToCart } = useCart();
+  const { addToCart } = useCart();
 
   const handleAddToCart = () => {
+    addToCart({
+      id,
+      name,
+      price: discountedPrice,
+      unit,
+      image,
+      farmer
+    });
     toast({
       title: "Added to cart",
       description: `${name} has been added to your cart.`,

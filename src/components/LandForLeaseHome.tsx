@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -26,6 +27,7 @@ interface LandListing {
 
 const LandForLeaseHome = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [searchLocation, setSearchLocation] = useState('');
   const [soilFilter, setSoilFilter] = useState('');
   const [selectedLand, setSelectedLand] = useState<LandListing | null>(null);
@@ -283,7 +285,11 @@ const LandForLeaseHome = () => {
 
         {/* View All Button */}
         <div className="text-center mt-8">
-          <Button variant="outline" size="lg">
+          <Button 
+            variant="outline" 
+            size="lg"
+            onClick={() => navigate('/all-land-listings')}
+          >
             View All Land Listings
           </Button>
         </div>

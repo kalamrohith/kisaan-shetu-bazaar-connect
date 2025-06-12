@@ -4,10 +4,12 @@ import { Badge } from '@/components/ui/badge';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { useToast } from '@/hooks/use-toast';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ProductDetailModal from './ProductDetailModal';
 
 const SpecialOffersCarousel = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -199,7 +201,12 @@ const SpecialOffersCarousel = () => {
         </div>
 
         <div className="text-center mt-8">
-          <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+          <Button 
+            size="lg" 
+            variant="outline" 
+            className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+            onClick={() => navigate('/all-offers')}
+          >
             🎯 View All Special Offers
           </Button>
         </div>

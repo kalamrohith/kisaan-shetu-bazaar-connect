@@ -48,37 +48,16 @@ const HeroSection = () => {
 
           {/* Hero Image */}
           <div className="relative">
-            <div className="aspect-square rounded-2xl bg-gradient-to-br from-primary/20 to-accent/30 p-8">
-              <div className="w-full h-full rounded-xl bg-card border border-border flex items-center justify-center">
-                <div className="text-center space-y-4">
-                  <img 
-                    src="https://images.unsplash.com/photo-1472396961693-142e6e269027?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" 
-                    alt="Farmers working on farm" 
-                    className="w-24 h-24 mx-auto rounded-full object-cover"
-                  />
-                  <h3 className="text-xl font-semibold">Kisaan Sethu</h3>
-                  <p className="text-muted-foreground">Directly from verified farmers</p>
-                </div>
-              </div>
-            </div>
-            
-            {/* Floating Cards */}
-            <div className="absolute -top-4 -left-4 bg-card border border-border rounded-lg p-4 shadow-lg">
-              <div className="flex items-center space-x-2">
-                <span className="text-2xl">🥕</span>
-                <div>
-                  <div className="font-semibold text-sm">Fresh Carrots</div>
-                  <div className="text-primary font-bold">₹40/kg</div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="absolute -bottom-4 -right-4 bg-card border border-border rounded-lg p-4 shadow-lg">
-              <div className="flex items-center space-x-2">
-                <span className="text-2xl">🍅</span>
-                <div>
-                  <div className="font-semibold text-sm">Organic Tomatoes</div>
-                  <div className="text-primary font-bold">₹60/kg</div>
+            <div className="aspect-square rounded-2xl overflow-hidden">
+              <img 
+                src="https://images.unsplash.com/photo-1472396961693-142e6e269027?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
+                alt="Indian farmers working in the field" 
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end p-6">
+                <div className="text-white">
+                  <h3 className="text-2xl font-bold">Kisaan Sethu</h3>
+                  <p className="text-white/90">Directly from verified farmers</p>
                 </div>
               </div>
             </div>
