@@ -48,7 +48,7 @@ const AllLandListingsPage = () => {
       soilType: 'Alluvial Soil',
       waterSource: 'River Water',
       electricity: true,
-      image: 'https://images.unsplash.com/photo-1536431311719-398b6704d4cc?w=400&h=400&fit=crop',
+      image: 'https://images.unsplash.com/photo-1574263867128-3d94c83dd82d?w=400&h=400&fit=crop',
       description: 'Traditional rice paddy fields with consistent water supply from nearby river.'
     },
     {
@@ -61,7 +61,7 @@ const AllLandListingsPage = () => {
       soilType: 'Laterite Soil',
       waterSource: 'Borewell',
       electricity: true,
-      image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=400&fit=crop',
+      image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=400&fit=crop',
       description: 'Perfect for mango and coconut cultivation. Established irrigation system.'
     },
     {

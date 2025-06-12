@@ -74,7 +74,7 @@ const FeaturedProducts = () => {
       name: 'Fresh Mangoes',
       price: 200,
       unit: 'dozen',
-      image: '🥭',
+      image: 'https://images.unsplash.com/photo-1605027990121-3b2c6c224ec9?w=400&h=400&fit=crop',
       farmer: 'Ramesh Yadav',
       location: 'Karnataka',
       category: 'Fruits',
